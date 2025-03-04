@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "mlx.h": "c",
+        "so_long.h": "c",
+        "unistd.h": "c",
+        "string.h": "c",
+        "stdio.h": "c",
+        "libft.h": "c",
+        "get_next_line.h": "c",
+        "so_long": "c",
+        "ft_printf.h": "c",
+        "x.h": "c",
+        "xlib.h": "c",
+        "keysym.h": "c"
+    }
+}
