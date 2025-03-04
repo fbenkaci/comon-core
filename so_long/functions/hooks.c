@@ -6,7 +6,7 @@
 /*   By: fbenkaci <fbenkaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 14:56:11 by fbenkaci          #+#    #+#             */
-/*   Updated: 2025/02/27 17:33:38 by fbenkaci         ###   ########.fr       */
+/*   Updated: 2025/03/04 15:15:54 by fbenkaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ void	free_images(t_data *img)
 		return ;
 	if (img->wall)
 		mlx_destroy_image(img->mlx, img->wall);
-	if (img->Item)
-		mlx_destroy_image(img->mlx, img->Item);
+	if (img->iitem)
+		mlx_destroy_image(img->mlx, img->iitem);
 	if (img->perso)
 		mlx_destroy_image(img->mlx, img->perso);
 	if (img->background)
 		mlx_destroy_image(img->mlx, img->background);
-	if (img->Exit)
-		mlx_destroy_image(img->mlx, img->Exit);
+	if (img->eexit)
+		mlx_destroy_image(img->mlx, img->eexit);
 	return ;
 }
 
@@ -74,7 +74,7 @@ int	keypress(int keycode, t_data *img)
 		close_window(img);
 	if (keycode == W)
 	{
-		ft_printf("%d\n", ++img->nb_moves);
+		ft_printf("%d\r\n", ++img->nb_moves);
 		move_up(keycode, img);
 	}
 	if (keycode == S)

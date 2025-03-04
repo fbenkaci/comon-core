@@ -6,7 +6,7 @@
 /*   By: fbenkaci <fbenkaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 09:35:17 by fbenkaci          #+#    #+#             */
-/*   Updated: 2025/03/01 13:58:54 by fbenkaci         ###   ########.fr       */
+/*   Updated: 2025/03/04 14:45:34 by fbenkaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	move_up(int keycode, t_data *img)
 			&& img->item != 0)
 			return ;
 		mlx_put_image_to_window(img->mlx, img->win, img->background,
-			img->player_y * width, img->player_x * height);
+			img->player_y * WIDTH, img->player_x * HEIGHT);
 		mlx_put_image_to_window(img->mlx, img->win, img->perso, img->player_y
-			* width, (img->player_x - 1) * height);
+			* WIDTH, (img->player_x - 1) * HEIGHT);
 		img->player_x--;
 	}
 	exitt(img);
@@ -61,9 +61,9 @@ void	move_down(int keycode, t_data *img)
 			&& img->item != 0)
 			return ;
 		mlx_put_image_to_window(img->mlx, img->win, img->background,
-			img->player_y * width, img->player_x * height);
+			img->player_y * WIDTH, img->player_x * HEIGHT);
 		mlx_put_image_to_window(img->mlx, img->win, img->perso, img->player_y
-			* width, (img->player_x + 1) * height);
+			* WIDTH, (img->player_x + 1) * HEIGHT);
 		img->player_x++;
 	}
 	exitt(img);
@@ -76,15 +76,15 @@ void	move_left(int keycode, t_data *img)
 		if (img->grid[img->player_y - 1][img->player_x] == 'C')
 		{
 			img->item--;
-			img->grid[img->player_y - 1][img->player_x] = '0';		
+			img->grid[img->player_y - 1][img->player_x] = '0';
 		}
 		if (img->grid[img->player_y - 1][img->player_x] == 'E'
 			&& img->item != 0)
 			return ;
 		mlx_put_image_to_window(img->mlx, img->win, img->background,
-			img->player_y * width, img->player_x * height);
+			img->player_y * WIDTH, img->player_x * HEIGHT);
 		mlx_put_image_to_window(img->mlx, img->win, img->perso, (img->player_y
-				- 1) * width, img->player_x * height);
+				- 1) * WIDTH, img->player_x * HEIGHT);
 		img->player_y--;
 	}
 	exitt(img);
@@ -97,15 +97,15 @@ void	move_right(int keycode, t_data *img)
 		if (img->grid[img->player_y + 1][img->player_x] == 'C')
 		{
 			img->item--;
-			img->grid[img->player_y + 1][img->player_x] = '0';		
-		}	
+			img->grid[img->player_y + 1][img->player_x] = '0';
+		}
 		if (img->grid[img->player_y + 1][img->player_x] == 'E'
 			&& img->item != 0)
 			return ;
 		mlx_put_image_to_window(img->mlx, img->win, img->background,
-			img->player_y * width, img->player_x * height);
+			img->player_y * WIDTH, img->player_x * HEIGHT);
 		mlx_put_image_to_window(img->mlx, img->win, img->perso, (img->player_y
-				+ 1) * width, img->player_x * height);
+				+ 1) * WIDTH, img->player_x * HEIGHT);
 		img->player_y++;
 	}
 	exitt(img);

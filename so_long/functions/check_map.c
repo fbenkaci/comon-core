@@ -6,7 +6,7 @@
 /*   By: fbenkaci <fbenkaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 12:43:10 by fbenkaci          #+#    #+#             */
-/*   Updated: 2025/03/04 14:08:37 by fbenkaci         ###   ########.fr       */
+/*   Updated: 2025/03/04 15:28:51 by fbenkaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ int	check_map_objects(t_data *map)
 	map->exit = count_objects(map, 'E');
 	if (map->start != 1 || map->exit != 1)
 	{
-		ft_printf("Error\n"
-					"Il doit y avoir une seule position de départ et une seule sortie.\n");
-		ft_printf("Aucun "
-					"élément autre que '1', '0',"
-					"'E','P' ou 'C' n'est permis.\n");
+		ft_printf("Error\n");
+		ft_printf("Il doit y avoir une seule position ");
+		ft_printf("de départ une seule sortie.\n");
+		ft_printf("Aucun élément autre que '1', '0',");
+		ft_printf("'E','P' ou 'C' n'est permis.\n");
 		free_map(map->grid);
 		free_map(map->cpy_grid);
 		return (0);
@@ -84,6 +84,8 @@ int	check_map_rectangle(t_data *map)
 		if (x != size_line)
 		{
 			ft_printf("Error.\nLa map n'est pas rectangulaire.\n");
+			free_map(map->grid);
+			free_map(map->cpy_grid);
 			return (0);
 		}
 		y++;
@@ -91,8 +93,11 @@ int	check_map_rectangle(t_data *map)
 	return (1);
 }
 
-int	check_valid_col_row(t_data *map, int last_col, int last_row, int x, int y)
+int	check_valid_col_row(t_data *map, int last_col, int last_row, int x)
 {
+	int	y;
+
+	y = 0;
 	if (!map || !map->grid)
 		return (0);
 	while (map->grid[0][x] != '\0')
@@ -122,19 +127,17 @@ int	check_map_borders(t_data *map)
 	int	last_col;
 	int	last_row;
 	int	x;
-	int	y;
 
 	last_col = 0;
 	last_row = 0;
 	x = 0;
-	y = 0;
 	while (map->grid[last_row] != NULL)
 		last_row++;
 	last_row--;
 	while (map->grid[0][last_col] != '\0')
 		last_col++;
 	last_col--;
-	if (!check_valid_col_row(map, last_col, last_row, x, y))
+	if (!check_valid_col_row(map, last_col, last_row, x))
 	{
 		ft_printf("Error.\nLes murs ne sont pas bon.\n");
 		return (0);

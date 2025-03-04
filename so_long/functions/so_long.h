@@ -6,7 +6,7 @@
 /*   By: fbenkaci <fbenkaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 11:12:27 by fbenkaci          #+#    #+#             */
-/*   Updated: 2025/03/04 14:10:54 by fbenkaci         ###   ########.fr       */
+/*   Updated: 2025/03/04 14:41:26 by fbenkaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,16 @@ typedef struct s_data
 	int				line_length;
 	int				img_width;
 	int				img_height;
-
 	void			*background;
 	void			*win;
 	void			*mlx;
-
 	int				player_x;
 	int				player_y;
 	int				moves;
-
 	int				total_cols;
 	int				total_rows;
-
-	void			*Exit;
-	void			*Item;
+	void			*eexit;
+	void			*iitem;
 	void			*wall;
 	void			*perso;
 	char			*str;
@@ -80,6 +76,6 @@ void				run_game(t_data *img);
 # define S 115
 # define D 100
 # define A 97
-# define width 32
-# define height 32
+# define WIDTH 32
+# define HEIGHT 32
 #endif

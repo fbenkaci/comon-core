@@ -6,7 +6,7 @@
 /*   By: fbenkaci <fbenkaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 09:20:23 by fbenkaci          #+#    #+#             */
-/*   Updated: 2025/03/04 15:34:41 by fbenkaci         ###   ########.fr       */
+/*   Updated: 2025/03/04 14:43:35 by fbenkaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	init_img2(t_data *img)
 {
-	img->background = mlx_xpm_file_to_image(img->mlx, "../textures/background.xpm",
+	img->background = mlx_xpm_file_to_image(img->mlx, "background.xpm",
 			&img->img_height, &img->img_width);
 	if (!img->background)
 	{
@@ -23,7 +23,7 @@ int	init_img2(t_data *img)
 		mlx_destroy_image(img->mlx, img->perso);
 		return (0);
 	}
-	img->eexit = mlx_xpm_file_to_image(img->mlx, "../textures/exit.xpm", &img->img_height,
+	img->eexit = mlx_xpm_file_to_image(img->mlx, "exit.xpm", &img->img_height,
 			&img->img_width);
 	if (!img->eexit)
 	{
@@ -38,18 +38,18 @@ int	init_img2(t_data *img)
 
 int	init_img(t_data *img)
 {
-	img->wall = mlx_xpm_file_to_image(img->mlx, "../textures/wall.xpm", &img->img_height,
+	img->wall = mlx_xpm_file_to_image(img->mlx, "wall.xpm", &img->img_height,
 			&img->img_width);
 	if (!img->wall)
 		return (0);
-	img->iitem = mlx_xpm_file_to_image(img->mlx, "../textures/item.xpm", &img->img_height,
+	img->iitem = mlx_xpm_file_to_image(img->mlx, "item.xpm", &img->img_height,
 			&img->img_width);
 	if (!img->iitem)
 	{
 		mlx_destroy_image(img->mlx, img->wall);
 		return (0);
 	}
-	img->perso = mlx_xpm_file_to_image(img->mlx, "../textures/perso.xpm", &img->img_height,
+	img->perso = mlx_xpm_file_to_image(img->mlx, "perso.xpm", &img->img_height,
 			&img->img_width);
 	if (!img->perso)
 	{

@@ -6,27 +6,27 @@
 /*   By: fbenkaci <fbenkaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 12:40:01 by fbenkaci          #+#    #+#             */
-/*   Updated: 2025/02/27 17:32:12 by fbenkaci         ###   ########.fr       */
+/*   Updated: 2025/03/04 14:41:39 by fbenkaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	flood_fill(t_data *map, char **cpy_grid, int y, int x,unsigned int *nb_item)
+void	flood_fill(t_data *map, char **cpy_grid, int y, int x)
 {
 	if (y < 0 || x < 0 || y >= map->total_rows || x >= map->total_cols)
 		return ;
 	if (map->cpy_grid[y][x] == '1' || map->cpy_grid[y][x] == 'V')
 		return ;
 	if (map->cpy_grid[y][x] == 'C')
-		*nb_item -= 1;
-	if (map->cpy_grid[y][x] == 'E' && *nb_item != 0)
+		map->item -= 1;
+	if (map->cpy_grid[y][x] == 'E' && map->item != 0)
 		return ;
 	map->cpy_grid[y][x] = 'V';
-	flood_fill(map, cpy_grid, y + 1, x, nb_item);
-	flood_fill(map, cpy_grid, y - 1, x, nb_item);
-	flood_fill(map, cpy_grid, y, x + 1, nb_item);
-	flood_fill(map, cpy_grid, y, x - 1, nb_item);
+	flood_fill(map, cpy_grid, y + 1, x);
+	flood_fill(map, cpy_grid, y - 1, x);
+	flood_fill(map, cpy_grid, y, x + 1);
+	flood_fill(map, cpy_grid, y, x - 1);
 }
 
 int	is_path_valid(t_data *map)
@@ -64,7 +64,7 @@ int	check_valid_path(t_data *map)
 	coordonne_player(map);
 	x = map->player_x;
 	y = map->player_y;
-	flood_fill(map, map->cpy_grid, y, x, &nb_item);
+	flood_fill(map, map->cpy_grid, y, x);
 	if (!is_path_valid(map))
 	{
 		free_map(map->grid);
@@ -72,5 +72,6 @@ int	check_valid_path(t_data *map)
 		ft_printf("Error.\nIl n'y a pas de chemin valide.\n");
 		return (0);
 	}
+	map->item = nb_item;
 	return (1);
 }
