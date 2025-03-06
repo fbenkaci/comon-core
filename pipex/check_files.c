@@ -6,7 +6,7 @@
 /*   By: fbenkaci <fbenkaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 12:13:47 by fbenkaci          #+#    #+#             */
-/*   Updated: 2025/03/01 15:07:31 by fbenkaci         ###   ########.fr       */
+/*   Updated: 2025/03/04 14:49:35 by fbenkaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,21 @@ int	check_outfile_exist(char **av)
 	if (fd == -1)
 		return (-1);
 	return (fd);
+}
+
+void	ft_free_array(char **array)
+{
+	int	i;
+
+	if (!array)
+		return ;
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
 }
 
 // int main(int ac, char **av)

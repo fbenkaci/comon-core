@@ -6,26 +6,11 @@
 /*   By: fbenkaci <fbenkaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:07:04 by fbenkaci          #+#    #+#             */
-/*   Updated: 2025/03/04 14:02:28 by fbenkaci         ###   ########.fr       */
+/*   Updated: 2025/03/04 15:22:08 by fbenkaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-void	ft_free_array(char **array)
-{
-	int	i;
-
-	if (!array)
-		return ;
-	i = 0;
-	while (array[i])
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
-}
 
 void	first_child(char **av, pipex *data, char **envp)
 {
@@ -113,9 +98,7 @@ void	second_child(char **av, pipex *data, char **envp)
 		close(data->fd[1]);
 		cmd = ft_split(av[3], ' ');
 		if (error_cmd(cmd) == 1)
-		{
 			exit(1);
-		}
 		data->path = command_loc(envp, cmd[0]);
 		if (!data->path)
 		{
@@ -124,16 +107,21 @@ void	second_child(char **av, pipex *data, char **envp)
 			close(data->fd[0]);
 			exit(127);
 		}
-		data->args = ft_split(av[3], ' ');
-		if (!data->args)
-		{
-			ft_free_array(cmd);
-			free(data->path);
-			close(data->fd[0]);
-			exit(1);
-		}
+		
 		if (init_second_child_process(av, data, envp, cmd) == 1)
 			exit(1);
+	}
+}
+
+int args(pipex *data, char **av, char **cmd)
+{
+	data->args = ft_split(av[3], ' ');
+	if (!data->args)
+	{
+		ft_free_array(cmd);
+		free(data->path);
+		close(data->fd[0]);
+		exit(1);
 	}
 }
 
