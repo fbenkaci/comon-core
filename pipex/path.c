@@ -6,7 +6,7 @@
 /*   By: fbenkaci <fbenkaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:14:31 by fbenkaci          #+#    #+#             */
-/*   Updated: 2025/03/03 15:19:58 by fbenkaci         ###   ########.fr       */
+/*   Updated: 2025/03/09 12:24:34 by fbenkaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**split_path(const char *path)
 	return (dest);
 }
 
-char	**PATH_COMMAND(char **envp)
+char	**path_command(char **envp)
 {
 	int	i;
 
@@ -43,11 +43,11 @@ char	*command_loc(char **envp, char *av)
 
 	if (access(av, F_OK) == 0)
 		return (ft_strdup(av));
-	dest = PATH_COMMAND(envp);
+	dest = path_command(envp);
 	if (!dest)
 		return (NULL);
-	i = 0;
-	while (dest[i])
+	i = -1;
+	while (dest[i++])
 	{
 		tmp_join = ft_strjoin(dest[i], "/");
 		join = ft_strjoin(tmp_join, av);
@@ -58,7 +58,6 @@ char	*command_loc(char **envp, char *av)
 			return (join);
 		}
 		free(join);
-		i++;
 	}
 	ft_free_array(dest);
 	return (NULL);
