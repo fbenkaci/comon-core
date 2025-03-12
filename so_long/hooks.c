@@ -6,7 +6,7 @@
 /*   By: fbenkaci <fbenkaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 14:56:11 by fbenkaci          #+#    #+#             */
-/*   Updated: 2025/03/04 15:15:54 by fbenkaci         ###   ########.fr       */
+/*   Updated: 2025/03/12 09:54:47 by fbenkaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,26 +31,26 @@ void	free_images(t_data *img)
 
 void	coordonne_player(t_data *img)
 {
-	int	i;
-	int	j;
+	int	y;
+	int	x;
 
-	i = 0;
-	while (img->grid[i])
+	y = 0;
+	while (img->grid[y])
 	{
-		j = 0;
-		while (img->grid[i][j] != '\0')
+		x = 0;
+		while (img->grid[y][x] != '\0')
 		{
-			if (img->grid[i][j] == 'P')
+			if (img->grid[y][x] == 'P')
 			{
-				img->player_x = j;
-				img->player_y = i;
+				img->player_x = x;
+				img->player_y = y;
 				break ;
 			}
-			j++;
+			x++;
 		}
-		if (img->grid[i][j] == 'P')
+		if (img->grid[y][x] == 'P')
 			break ;
-		i++;
+		y++;
 	}
 }
 
@@ -70,27 +70,26 @@ int	close_window(t_data *img)
 
 int	keypress(int keycode, t_data *img)
 {
-	if (keycode == XK_Escape)
-		close_window(img);
+	kill(keycode, img);
 	if (keycode == W)
 	{
-		ft_printf("%d\r\n", ++img->nb_moves);
 		move_up(keycode, img);
+		stop_count_w(img);
 	}
 	if (keycode == S)
 	{
-		ft_printf("%d\n", ++img->nb_moves);
 		move_down(keycode, img);
+		stop_count_s(img);
 	}
 	if (keycode == A)
 	{
-		ft_printf("%d\n", ++img->nb_moves);
 		move_left(keycode, img);
+		stop_count_a(img);
 	}
 	if (keycode == D)
 	{
-		ft_printf("%d\n", ++img->nb_moves);
 		move_right(keycode, img);
+		stop_count_d(img);
 	}
 	return (0);
 }

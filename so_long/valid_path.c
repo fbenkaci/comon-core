@@ -6,7 +6,7 @@
 /*   By: fbenkaci <fbenkaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 12:40:01 by fbenkaci          #+#    #+#             */
-/*   Updated: 2025/03/04 14:41:39 by fbenkaci         ###   ########.fr       */
+/*   Updated: 2025/03/09 10:29:08 by fbenkaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,11 @@ int	check_valid_path(t_data *map)
 	}
 	map->item = nb_item;
 	return (1);
+}
+
+void	mlx_error(t_data img)
+{
+	free_map(img.grid);
+	free_map(img.cpy_grid);
+	ft_printf("Error.\nmlx_init() a échoué.\n");
 }

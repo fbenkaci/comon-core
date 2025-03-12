@@ -6,7 +6,7 @@
 /*   By: fbenkaci <fbenkaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 09:20:23 by fbenkaci          #+#    #+#             */
-/*   Updated: 2025/03/04 15:34:41 by fbenkaci         ###   ########.fr       */
+/*   Updated: 2025/03/09 12:29:59 by fbenkaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	init_img2(t_data *img)
 {
-	img->background = mlx_xpm_file_to_image(img->mlx, "../textures/background.xpm",
-			&img->img_height, &img->img_width);
+	img->background = mlx_xpm_file_to_image(img->mlx,
+			"textures/background.xpm", &img->img_width, &img->img_height);
 	if (!img->background)
 	{
 		mlx_destroy_image(img->mlx, img->wall);
@@ -23,8 +23,8 @@ int	init_img2(t_data *img)
 		mlx_destroy_image(img->mlx, img->perso);
 		return (0);
 	}
-	img->eexit = mlx_xpm_file_to_image(img->mlx, "../textures/exit.xpm", &img->img_height,
-			&img->img_width);
+	img->eexit = mlx_xpm_file_to_image(img->mlx, "textures/exit.xpm",
+			&img->img_width, &img->img_height);
 	if (!img->eexit)
 	{
 		mlx_destroy_image(img->mlx, img->wall);
@@ -38,19 +38,19 @@ int	init_img2(t_data *img)
 
 int	init_img(t_data *img)
 {
-	img->wall = mlx_xpm_file_to_image(img->mlx, "../textures/wall.xpm", &img->img_height,
-			&img->img_width);
+	img->wall = mlx_xpm_file_to_image(img->mlx, "textures/wall.xpm",
+			&img->img_width, &img->img_height);
 	if (!img->wall)
 		return (0);
-	img->iitem = mlx_xpm_file_to_image(img->mlx, "../textures/item.xpm", &img->img_height,
-			&img->img_width);
+	img->iitem = mlx_xpm_file_to_image(img->mlx, "textures/item.xpm",
+			&img->img_width, &img->img_height);
 	if (!img->iitem)
 	{
 		mlx_destroy_image(img->mlx, img->wall);
 		return (0);
 	}
-	img->perso = mlx_xpm_file_to_image(img->mlx, "../textures/perso.xpm", &img->img_height,
-			&img->img_width);
+	img->perso = mlx_xpm_file_to_image(img->mlx, "textures/perso.xpm",
+			&img->img_width, &img->img_height);
 	if (!img->perso)
 	{
 		mlx_destroy_image(img->mlx, img->wall);
@@ -62,41 +62,41 @@ int	init_img(t_data *img)
 	return (1);
 }
 
-void	fill_map(t_data *img, int i, int j)
+void	fill_map(t_data *img, int y, int x)
 {
-	while (img->grid[i] != NULL)
+	while (img->grid[y] != NULL)
 	{
-		j = 0;
-		while (img->grid[i][j])
+		x = 0;
+		while (img->grid[y][x])
 		{
-			if (img->grid[i][j] == '1')
-				mlx_put_image_to_window(img->mlx, img->win, img->wall, i
-					* WIDTH, j * HEIGHT);
-			else if (img->grid[i][j] == '0')
-				mlx_put_image_to_window(img->mlx, img->win, img->background, i
-					* WIDTH, j * HEIGHT);
-			else if (img->grid[i][j] == 'P')
-				mlx_put_image_to_window(img->mlx, img->win, img->perso, i
-					* WIDTH, j * HEIGHT);
-			else if (img->grid[i][j] == 'E')
-				mlx_put_image_to_window(img->mlx, img->win, img->eexit, i
-					* WIDTH, j * HEIGHT);
-			else if (img->grid[i][j] == 'C')
-				mlx_put_image_to_window(img->mlx, img->win, img->iitem, i
-					* WIDTH, j * HEIGHT);
-			j++;
+			if (img->grid[y][x] == '1')
+				mlx_put_image_to_window(img->mlx, img->win, img->wall, x
+					* WIDTH, y * HEIGHT);
+			else if (img->grid[y][x] == '0')
+				mlx_put_image_to_window(img->mlx, img->win, img->background, x
+					* WIDTH, y * HEIGHT);
+			else if (img->grid[y][x] == 'P')
+				mlx_put_image_to_window(img->mlx, img->win, img->perso, x
+					* WIDTH, y * HEIGHT);
+			else if (img->grid[y][x] == 'E')
+				mlx_put_image_to_window(img->mlx, img->win, img->eexit, x
+					* WIDTH, y * HEIGHT);
+			else if (img->grid[y][x] == 'C')
+				mlx_put_image_to_window(img->mlx, img->win, img->iitem, x
+					* WIDTH, y * HEIGHT);
+			x++;
 		}
-		i++;
+		y++;
 	}
 }
 
 int	set_object(t_data *img)
 {
-	int	i;
-	int	j;
+	int	y;
+	int	x;
 
-	i = 0;
-	j = 0;
+	y = 0;
+	x = 0;
 	if (!img->grid)
 	{
 		ft_printf("Error.\nmap ou img->grid est NULL.\n");
@@ -112,7 +112,7 @@ int	set_object(t_data *img)
 		free(img->mlx);
 		return (1);
 	}
-	fill_map(img, i, j);
+	fill_map(img, y, x);
 	return (0);
 }
 
@@ -131,15 +131,15 @@ int	main(int ac, char **av)
 		img.mlx = mlx_init();
 		if (!img.mlx)
 		{
-			free_map(img.grid);
-			free_map(img.cpy_grid);
-			ft_printf("Error.\nmlx_init() a échoué.\n");
+			mlx_error(img);
 			return (0);
 		}
-		img.win = mlx_new_window(img.mlx, 1920, 1080, "so_long!");
+		img.win = mlx_new_window(img.mlx, img.total_cols * 32, img.total_rows
+				* 32, "so_long!");
 		if (set_object(&img) == 1)
 			return (0);
 		run_game(&img);
 	}
+	ft_printf("Error.\nVous devez entrer un fichier\n");
 	return (0);
 }

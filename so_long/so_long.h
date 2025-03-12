@@ -6,7 +6,7 @@
 /*   By: fbenkaci <fbenkaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 11:12:27 by fbenkaci          #+#    #+#             */
-/*   Updated: 2025/03/04 14:41:26 by fbenkaci         ###   ########.fr       */
+/*   Updated: 2025/03/08 14:37:05 by fbenkaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 # include "../ft_printf/ft_printf.h"
 # include "../get_next_line/get_next_line.h"
 # include "../libft/libft.h"
+# include "../mlx_linux/mlx.h"
 # include "X11/X.h"
 # include "X11/keysym.h"
-# include "mlx_linux/mlx.h"
 # include <X11/Xlib.h>
 # include <fcntl.h>
 # include <string.h>
@@ -71,6 +71,13 @@ void				free_images(t_data *img);
 void				img_mlx_null(t_data img);
 int					init_grid(t_data *img, char **av);
 void				run_game(t_data *img);
+void				kill(int keycode, t_data *img);
+void				new_win(t_data img);
+void				stop_count_w(t_data *img);
+void				stop_count_s(t_data *img);
+void				stop_count_a(t_data *img);
+void				stop_count_d(t_data *img);
+void				mlx_error(t_data img);
 
 # define W 119
 # define S 115

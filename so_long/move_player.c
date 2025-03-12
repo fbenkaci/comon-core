@@ -6,7 +6,7 @@
 /*   By: fbenkaci <fbenkaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 09:35:17 by fbenkaci          #+#    #+#             */
-/*   Updated: 2025/03/04 14:45:34 by fbenkaci         ###   ########.fr       */
+/*   Updated: 2025/03/12 09:54:02 by fbenkaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,49 +29,9 @@ int	exitt(t_data *img)
 
 void	move_up(int keycode, t_data *img)
 {
-	if (keycode == W && img->grid[img->player_y][img->player_x - 1] != '1')
-	{
-		if (img->grid[img->player_y][img->player_x - 1] == 'C')
-		{
-			img->item--;
-			img->grid[img->player_y][img->player_x - 1] = '0';
-		}
-		if (img->grid[img->player_y][img->player_x - 1] == 'E'
-			&& img->item != 0)
-			return ;
-		mlx_put_image_to_window(img->mlx, img->win, img->background,
-			img->player_y * WIDTH, img->player_x * HEIGHT);
-		mlx_put_image_to_window(img->mlx, img->win, img->perso, img->player_y
-			* WIDTH, (img->player_x - 1) * HEIGHT);
-		img->player_x--;
-	}
-	exitt(img);
-}
-
-void	move_down(int keycode, t_data *img)
-{
-	if (keycode == S && img->grid[img->player_y][img->player_x + 1] != '1')
-	{
-		if (img->grid[img->player_y][img->player_x + 1] == 'C')
-		{
-			img->item--;
-			img->grid[img->player_y][img->player_x + 1] = '0';
-		}
-		if (img->grid[img->player_y][img->player_x + 1] == 'E'
-			&& img->item != 0)
-			return ;
-		mlx_put_image_to_window(img->mlx, img->win, img->background,
-			img->player_y * WIDTH, img->player_x * HEIGHT);
-		mlx_put_image_to_window(img->mlx, img->win, img->perso, img->player_y
-			* WIDTH, (img->player_x + 1) * HEIGHT);
-		img->player_x++;
-	}
-	exitt(img);
-}
-
-void	move_left(int keycode, t_data *img)
-{
-	if (keycode == A && img->grid[img->player_y - 1][img->player_x] != '1')
+	img->nb_moves++;
+	ft_printf("%d\n", img->nb_moves);
+	if (keycode == W && img->grid[img->player_y - 1][img->player_x] != '1')
 	{
 		if (img->grid[img->player_y - 1][img->player_x] == 'C')
 		{
@@ -82,17 +42,17 @@ void	move_left(int keycode, t_data *img)
 			&& img->item != 0)
 			return ;
 		mlx_put_image_to_window(img->mlx, img->win, img->background,
-			img->player_y * WIDTH, img->player_x * HEIGHT);
-		mlx_put_image_to_window(img->mlx, img->win, img->perso, (img->player_y
-				- 1) * WIDTH, img->player_x * HEIGHT);
+			img->player_x * WIDTH, img->player_y * HEIGHT);
+		mlx_put_image_to_window(img->mlx, img->win, img->perso, img->player_x
+			* WIDTH, (img->player_y - 1) * HEIGHT);
 		img->player_y--;
 	}
 	exitt(img);
 }
 
-void	move_right(int keycode, t_data *img)
+void	move_down(int keycode, t_data *img)
 {
-	if (keycode == D && img->grid[img->player_y + 1][img->player_x] != '1')
+	if (keycode == S && img->grid[img->player_y + 1][img->player_x] != '1')
 	{
 		if (img->grid[img->player_y + 1][img->player_x] == 'C')
 		{
@@ -103,10 +63,52 @@ void	move_right(int keycode, t_data *img)
 			&& img->item != 0)
 			return ;
 		mlx_put_image_to_window(img->mlx, img->win, img->background,
-			img->player_y * WIDTH, img->player_x * HEIGHT);
-		mlx_put_image_to_window(img->mlx, img->win, img->perso, (img->player_y
-				+ 1) * WIDTH, img->player_x * HEIGHT);
+			img->player_x * WIDTH, img->player_y * HEIGHT);
+		mlx_put_image_to_window(img->mlx, img->win, img->perso, img->player_x
+			* WIDTH, (img->player_y + 1) * HEIGHT);
 		img->player_y++;
+	}
+	exitt(img);
+}
+
+void	move_left(int keycode, t_data *img)
+{
+	if (keycode == A && img->grid[img->player_y][img->player_x - 1] != '1')
+	{
+		if (img->grid[img->player_y][img->player_x - 1] == 'C')
+		{
+			img->item--;
+			img->grid[img->player_y][img->player_x - 1] = '0';
+		}
+		if (img->grid[img->player_y][img->player_x - 1] == 'E'
+			&& img->item != 0)
+			return ;
+		mlx_put_image_to_window(img->mlx, img->win, img->background,
+			img->player_x * WIDTH, img->player_y * HEIGHT);
+		mlx_put_image_to_window(img->mlx, img->win, img->perso, (img->player_x
+				- 1) * WIDTH, img->player_y * HEIGHT);
+		img->player_x--;
+	}
+	exitt(img);
+}
+
+void	move_right(int keycode, t_data *img)
+{
+	if (keycode == D && img->grid[img->player_y][img->player_x + 1] != '1')
+	{
+		if (img->grid[img->player_y][img->player_x + 1] == 'C')
+		{
+			img->item--;
+			img->grid[img->player_y][img->player_x + 1] = '0';
+		}
+		if (img->grid[img->player_y][img->player_x + 1] == 'E'
+			&& img->item != 0)
+			return ;
+		mlx_put_image_to_window(img->mlx, img->win, img->background,
+			img->player_x * WIDTH, img->player_y * HEIGHT);
+		mlx_put_image_to_window(img->mlx, img->win, img->perso, (img->player_x
+				+ 1) * WIDTH, img->player_y * HEIGHT);
+		img->player_x++;
 	}
 	exitt(img);
 }
