@@ -6,7 +6,7 @@
 /*   By: fbenkaci <fbenkaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 12:13:47 by fbenkaci          #+#    #+#             */
-/*   Updated: 2025/03/09 11:54:17 by fbenkaci         ###   ########.fr       */
+/*   Updated: 2025/03/14 15:48:13 by fbenkaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ int	check_outfile_exist(char **av)
 {
 	int	fd;
 
-	fd = 0;
 	fd = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
+	{
+		perror("Error opening outfile");
 		return (-1);
+	}
 	return (fd);
 }
 

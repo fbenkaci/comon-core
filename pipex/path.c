@@ -6,7 +6,7 @@
 /*   By: fbenkaci <fbenkaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:14:31 by fbenkaci          #+#    #+#             */
-/*   Updated: 2025/03/09 12:24:34 by fbenkaci         ###   ########.fr       */
+/*   Updated: 2025/03/14 15:29:22 by fbenkaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*command_loc(char **envp, char *av)
 	if (!dest)
 		return (NULL);
 	i = -1;
-	while (dest[i++])
+	while (dest[++i])
 	{
 		tmp_join = ft_strjoin(dest[i], "/");
 		join = ft_strjoin(tmp_join, av);

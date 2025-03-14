@@ -6,7 +6,7 @@
 /*   By: fbenkaci <fbenkaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:07:04 by fbenkaci          #+#    #+#             */
-/*   Updated: 2025/03/09 12:16:16 by fbenkaci         ###   ########.fr       */
+/*   Updated: 2025/03/14 15:49:43 by fbenkaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	init_first_child_process(char **av, t_pipex *data, char **envp)
 		ft_free_array(data->args);
 		free(data->path);
 		close(data->fd[1]);
+		close(data->inputfd);
 		return (1);
 	}
 	if (dup2(data->inputfd, 0) == -1 || dup2(data->fd[1], 1) == -1)
@@ -83,7 +84,6 @@ void	second_child(char **av, t_pipex *data, char **envp)
 		if (!data->path)
 		{
 			ft_free_array(cmd);
-			perror("Command not found");
 			close(data->fd[0]);
 			exit(127);
 		}
@@ -122,31 +122,31 @@ int	init_second_child_process(char **av, t_pipex *data, char **envp, char **cmd)
 	return (0);
 }
 
-// int	main(int ac, char **av, char **envp)
-// {
-// 	t_pipex	data;
-// 	int		status;
+int	main(int ac, char **av, char **envp)
+{
+	t_pipex	data;
+	int		status;
 
-// 	if (ac == 5)
-// 	{
-// 		if (pipe(data.fd) == -1)
-// 		{
-// 			perror("Pipe failed");
-// 			return (1);
-// 		}
-// 		first_child(av, &data, envp);
-// 		second_child(av, &data, envp);
-// 		close(data.fd[1]);
-// 		close(data.fd[0]);
-// 		waitpid(data.id1, &status, 0);
-// 		waitpid(data.id2, &status, 0);
-// 		if (status == -1)
-// 		{
-// 			free(data.path);
-// 			return (WEXITSTATUS(status));
-// 		}
-// 	}
-// 	else
-// 		write(1, "You must have 5 arguments.\n", 28);
-// 	return (0);
-// }
+	if (ac == 5)
+	{
+		if (pipe(data.fd) == -1)
+		{
+			perror("Pipe failed");
+			return (1);
+		}
+		first_child(av, &data, envp);
+		second_child(av, &data, envp);
+		close(data.fd[1]);
+		close(data.fd[0]);
+		waitpid(data.id1, &status, 0);
+		waitpid(data.id2, &status, 0);
+		if (status == -1)
+		{
+			free(data.path);
+			return (WEXITSTATUS(status));
+		}
+	}
+	else
+		write(1, "You must have 5 arguments.\n", 28);
+	return (0);
+}
