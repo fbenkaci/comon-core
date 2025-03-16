@@ -6,7 +6,7 @@
 /*   By: fbenkaci <fbenkaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 14:08:51 by fbenkaci          #+#    #+#             */
-/*   Updated: 2025/03/12 10:43:36 by fbenkaci         ###   ########.fr       */
+/*   Updated: 2025/03/15 15:04:27 by fbenkaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,7 @@
 # include "../libft/libft.h"
 
 int	check_if_numbers(char **av);
+int check_doublon(char **av);
+    
 
 #endif
